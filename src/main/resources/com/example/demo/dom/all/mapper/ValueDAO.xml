@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dom.all.mapper.ValueDAO">
+  <resultMap id="BaseResultMap" type="com.example.demo.dom.all.entity.Value">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="decimal" jdbcType="DECIMAL" property="decimal" />
+    <result column="double" jdbcType="DOUBLE" property="double" />
+    <result column="numeric" jdbcType="DECIMAL" property="numeric" />
+    <result column="float" jdbcType="REAL" property="float" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, decimal, double, numeric, float
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from value
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from value
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.dom.all.entity.Value">
+    insert into value (id, decimal, double, 
+      numeric, float)
+    values (#{id,jdbcType=INTEGER}, #{decimal,jdbcType=DECIMAL}, #{double,jdbcType=DOUBLE}, 
+      #{numeric,jdbcType=DECIMAL}, #{float,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.dom.all.entity.Value">
+    insert into value
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="decimal != null">
+        decimal,
+      </if>
+      <if test="double != null">
+        double,
+      </if>
+      <if test="numeric != null">
+        numeric,
+      </if>
+      <if test="float != null">
+        float,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="decimal != null">
+        #{decimal,jdbcType=DECIMAL},
+      </if>
+      <if test="double != null">
+        #{double,jdbcType=DOUBLE},
+      </if>
+      <if test="numeric != null">
+        #{numeric,jdbcType=DECIMAL},
+      </if>
+      <if test="float != null">
+        #{float,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.dom.all.entity.Value">
+    update value
+    <set>
+      <if test="decimal != null">
+        decimal = #{decimal,jdbcType=DECIMAL},
+      </if>
+      <if test="double != null">
+        double = #{double,jdbcType=DOUBLE},
+      </if>
+      <if test="numeric != null">
+        numeric = #{numeric,jdbcType=DECIMAL},
+      </if>
+      <if test="float != null">
+        float = #{float,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.dom.all.entity.Value">
+    update value
+    set decimal = #{decimal,jdbcType=DECIMAL},
+      double = #{double,jdbcType=DOUBLE},
+      numeric = #{numeric,jdbcType=DECIMAL},
+      float = #{float,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

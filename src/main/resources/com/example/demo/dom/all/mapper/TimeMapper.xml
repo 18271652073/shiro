@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dom.all.mapper.TimeMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.dom.all.entity.Time">
+    <result column="timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="datetime" jdbcType="TIMESTAMP" property="datetime" />
+    <result column="date" jdbcType="DATE" property="date" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.demo.dom.all.entity.Time">
+    insert into time (timestamp, datetime, date
+      )
+    values (#{timestamp,jdbcType=TIMESTAMP}, #{datetime,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.dom.all.entity.Time">
+    insert into time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+      <if test="datetime != null">
+        datetime,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datetime != null">
+        #{datetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>
