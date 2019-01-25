@@ -26,6 +26,7 @@ public class ExceptionHandle {
         switch (exception) {
             case "ConcurrentAccessException":
                 modelAndView.setViewName("login");
+//                modelAndView.setViewName("home");
                 modelAndView.addObject("msg", e.getMessage());
                 break;
             case "IncorrectCredentialsException":

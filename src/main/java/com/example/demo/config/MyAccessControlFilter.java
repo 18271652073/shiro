@@ -34,6 +34,11 @@ public class MyAccessControlFilter extends AccessControlFilter {
         String uri = getPathWithinApplication(servletRequest);
         System.out.println("用户正在访问：" + uri);
         Subject subject = getSubject(servletRequest, servletResponse);
+//        RedisClient redisClient = SpringContextUtils.getContext().getBean(RedisClient.class);
+//        if(redisClient.get("shiro_redis_session:"+subject.getSession().getId())==null){
+//            return false;
+//        }
+//        System.out.println(subject.getSession().getId());
         if (subject.getPrincipal() == null) {
             return false;
         } else {

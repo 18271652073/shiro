@@ -55,7 +55,7 @@ public class LoginController {
             model.addAttribute("msg", "验证码输入错误或超时！请刷新页面！");
             return "login";
         }
-        UserToken userToken = new UserToken(username, password,"Admin");
+        UserToken userToken = new UserToken(username, password,"Admin","yes");
         if(rememberMe!=null&&"".equals(rememberMe)){
             userToken.setRememberMe(true);
         }

@@ -48,8 +48,10 @@ public class AuthRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) {
         System.out.println("AuthRealm身份验证");
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+//        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        UserToken token = (UserToken) authenticationToken;
         String username = token.getUsername();
+        String kickOut = token.getKickOut();
         User user = userService.findUser(username);
         if (user == null) {
             throw new IncorrectCredentialsException("AuthRealm:用户身份: null");
@@ -57,7 +59,11 @@ public class AuthRealm extends AuthorizingRealm {
         Collection<Session> sessions = redisSessionDAO.getActiveSessions();
         for (Session session : sessions) {
             if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) != null && (user.toString()).equals(session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY).toString())) {
-                throw new ConcurrentAccessException("早已登陆！");
+//                if ("yes".equals(kickOut)) {
+//                    redisSessionDAO.delete(session);
+//                    continue;
+//                }
+                throw new ConcurrentAccessException("早已登陆！或在别处登录！");
             }
         }
         //return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
