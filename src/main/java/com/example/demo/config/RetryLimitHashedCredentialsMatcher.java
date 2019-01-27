@@ -25,7 +25,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 //        passwordRetryCache = redisCacheManager.getCache("passwordRetryCache");
 //
 //    }
-
+//
 //    @Override
 //    public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
 //        String username = (String) token.getPrincipal();
@@ -33,6 +33,8 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 //        if (null == retryCount) {
 //            retryCount = new AtomicInteger(0);
 //            passwordRetryCache.put(username, retryCount);
+//        }else if(retryCount.incrementAndGet()<=3){
+//            passwordRetryCache.put(username, new AtomicInteger(retryCount.incrementAndGet()));
 //        }
 //        if (retryCount.incrementAndGet() > 3) {
 //            logger.warn("username: " + username + " tried to login more than 3 times in period");
