@@ -160,6 +160,7 @@ public class ShiroConfig {
         filterMap.put("/testLogin/loginPage", "anon");
         filterMap.put("/testLogin/loginOut", "anon");
         filterMap.put("/testLogin/captcha.img", "anon");
+        filterMap.put("/comment/lock", "anon");
 //        filterMap.put("/home/first", "oauth2[power:1]");
 
         filterMap.put("/js/**", "anon");
