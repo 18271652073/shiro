@@ -4,6 +4,7 @@ import com.example.demo.dom.all.entity.User;
 import com.example.demo.dom.all.mapper.UserMapper;
 import com.example.demo.service.UserService;
 import com.example.demo.util.SpringContextUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -64,13 +65,16 @@ public class MyAccessControlFilter extends AccessControlFilter {
                     }
                 }
             }
-            return true;
+//            return true;
+            return false;
         }
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
-        System.out.println("AccessControlFilter:onAccessDenied拦截执行");
+        System.out.println("MyAccessControlFilter:onAccessDenied拦截执行");
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         saveRequest(servletRequest);
         WebUtils.issueRedirect(servletRequest, servletResponse, "/login/loginPage");
         return false;
