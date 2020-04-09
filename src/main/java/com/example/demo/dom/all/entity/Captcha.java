@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * captcha
- * @author 
+ *
+ * @author
  */
 public class Captcha implements Serializable {
     private String uuid;

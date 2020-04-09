@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<title>跨域请求</title>
-		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#test").on('click', function() {
-					$.ajax({
-						url: 'http://localhost:8081//testLogin/loginPage',
-						type: 'get',
-						dataType: 'text',
-						success: function(data) {
-							alert(data);
-							console.log(data);
-						},
-						error: function(data) {
-							alert(2);
-						}
-					});
-				});
-				$("#test1").on('click', function() {
-					$.ajax({
-						url: 'http://localhost:8081//testLogin/check?username=123&password=123&captcha=',
-						type: 'get',
-						dataType: 'text',
-						xhrFields: {
-							withCredentials: true
-						},
-						//contentType: 'application/x-www-form-urlencoded',  
-						crossDomain: true,
-						success: function(data) {
-							alert(data);
-							console.log(data);
-						},
-						error: function(data) {
-							alert(2);
-						}
-					});
-				});
-				$("#test2").on('click', function() {
-					$.ajax({
-						url: 'http://localhost:8081//testLogin/first',
-						type: 'get',
-						dataType: 'text',
-						xhrFields: {
-							withCredentials: true
-						},
-						//contentType: 'application/x-www-form-urlencoded',  
-						crossDomain: true,
-						success: function(data) {
-							alert(data);
-							console.log(data);
-						},
-						error: function(data) {
-							alert(2);
-						}
-					});
-				});
-			});
-		</script>
-	</head>
-	<h4>test</h1>
-		<button id='test'>点击</button>
-		<button id='test1'>点击</button>
-		<button id='test2'>点击</button>
-	<body>
+<head>
+    <meta charset="utf-8"/>
+    <title>跨域请求</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#test").on('click', function () {
+                $.ajax({
+                    url: 'http://localhost:8081//testLogin/loginPage',
+                    type: 'get',
+                    dataType: 'text',
+                    success: function (data) {
+                        alert(data);
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        alert(2);
+                    }
+                });
+            });
+            $("#test1").on('click', function () {
+                $.ajax({
+                    url: 'http://localhost:8081//testLogin/check?username=123&password=123&captcha=',
+                    type: 'get',
+                    dataType: 'text',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    //contentType: 'application/x-www-form-urlencoded',
+                    crossDomain: true,
+                    success: function (data) {
+                        alert(data);
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        alert(2);
+                    }
+                });
+            });
+            $("#test2").on('click', function () {
+                $.ajax({
+                    url: 'http://localhost:8081//testLogin/first',
+                    type: 'get',
+                    dataType: 'text',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    //contentType: 'application/x-www-form-urlencoded',
+                    crossDomain: true,
+                    success: function (data) {
+                        alert(data);
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        alert(2);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<h4>test</h1>
+    <button id='test'>点击</button>
+    <button id='test1'>点击</button>
+    <button id='test2'>点击</button>
+    <body>
 
-	</body>
+    </body>
 
 </html>

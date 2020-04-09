@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * module
- * @author 
+ *
+ * @author
  */
 public class Module implements Serializable {
     private Integer mid;

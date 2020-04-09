@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * module_role
- * @author 
+ *
+ * @author
  */
 public class ModuleRole implements Serializable {
     private Integer rid;

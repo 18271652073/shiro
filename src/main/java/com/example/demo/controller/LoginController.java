@@ -46,17 +46,17 @@ public class LoginController {
                         @RequestParam String username,
                         @RequestParam String password,
                         @RequestParam String captcha,
-                        @RequestParam(required = false,defaultValue = "") String rememberMe) {
+                        @RequestParam(required = false, defaultValue = "") String rememberMe) {
         model.addAttribute("username", username);
         model.addAttribute("password", password);
         Subject subject = SecurityUtils.getSubject();
-        String sessionId=request.getSession().getId();
-        if(!(captchaService.validate(sessionId,captcha))){
+        String sessionId = request.getSession().getId();
+        if (!(captchaService.validate(sessionId, captcha))) {
             model.addAttribute("msg", "验证码输入错误或超时！请刷新页面！");
             return "login";
         }
-        UserToken userToken = new UserToken(username, password,"Admin","yes");
-        if(rememberMe!=null&&"".equals(rememberMe)){
+        UserToken userToken = new UserToken(username, password, "Admin", "yes");
+        if (rememberMe != null && "".equals(rememberMe)) {
             userToken.setRememberMe(true);
         }
         subject.login(userToken);
@@ -70,9 +70,9 @@ public class LoginController {
     public String register(Model model, @RequestParam String username, @RequestParam String password) {
         model.addAttribute("username", username);
         model.addAttribute("password", password);
-        if(userService.register(username,password)){
+        if (userService.register(username, password)) {
             model.addAttribute("msg", "注册成功");
-        }else {
+        } else {
             model.addAttribute("msg", "注册失败，用户已存在！");
         }
         return "login";
@@ -82,7 +82,7 @@ public class LoginController {
      * 登出
      */
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
-    public String loginOut(){
+    public String loginOut() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "login";
@@ -94,11 +94,11 @@ public class LoginController {
     @ResponseBody
     @GetMapping(value = "/captcha.img")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String sessionId=request.getSession().getId();
+        String sessionId = request.getSession().getId();
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-        BufferedImage image=captchaService.getKaptcha(sessionId);
-        ServletOutputStream out=response.getOutputStream();
+        BufferedImage image = captchaService.getKaptcha(sessionId);
+        ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }

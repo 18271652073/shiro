@@ -34,22 +34,22 @@ public class CaptchaService {
         captcha.setCode(code);
         captcha.setTime(date);
         captcha.setUuid(uuid);
-        if(userService.getCaptcha(uuid)!=null){
+        if (userService.getCaptcha(uuid) != null) {
             userService.updateCaptcha(captcha);
-        }else {
+        } else {
             userService.addCaptcha(captcha);
         }
         return producer.createImage(code);
     }
 
     public boolean validate(String uuid, String code) {
-        boolean result=false;
+        boolean result = false;
         Captcha captcha = userService.getCaptcha(uuid);
-        if(captcha==null){
-            result=false;
-        }else if(code.equals(captcha.getCode()) &&  captcha.getTime().getTime()>(new Date()).getTime()){
+        if (captcha == null) {
+            result = false;
+        } else if (code.equals(captcha.getCode()) && captcha.getTime().getTime() > (new Date()).getTime()) {
             userService.delCaptcha(uuid);
-            result=true;
+            result = true;
         }
         return result;
     }

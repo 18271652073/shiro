@@ -45,21 +45,21 @@ public class MyAccessControlFilter extends AccessControlFilter {
         } else {
             User user = (User) subject.getPrincipal();
             UserService userService = SpringContextUtils.getContext().getBean(UserService.class);
-            Set<String> powers=userService.findPower(user.getUid().toString());
-            if(o==null){
-                System.out.println("这个url没设置权限url:"+uri);
+            Set<String> powers = userService.findPower(user.getUid().toString());
+            if (o == null) {
+                System.out.println("这个url没设置权限url:" + uri);
                 return false;
             }
             String[] passUrls = (String[]) o;
-            for (String power:powers) {
-                if(power.equals("add")){
+            for (String power : powers) {
+                if (power.equals("add")) {
                     for (String passUrl : passUrls) {
-                        int begin=passUrl.indexOf(":");
-                        int last=passUrl.length();
-                        String permArr = passUrl.substring(begin+1,last);
+                        int begin = passUrl.indexOf(":");
+                        int last = passUrl.length();
+                        String permArr = passUrl.substring(begin + 1, last);
                         if (permArr.equals("1")) {
                             return true;
-                        }else {
+                        } else {
                             return false;
                         }
                     }

@@ -22,6 +22,7 @@ import java.util.Set;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
     public Set<String> findPower(String id) {
         return userMapper.selectById(id);
     }
@@ -48,21 +49,21 @@ public class UserService {
 
     public boolean register(String username, String password) {
         RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
-        String salt=randomNumberGenerator.nextBytes().toHex();
+        String salt = randomNumberGenerator.nextBytes().toHex();
         //指定散列算法为md5
         String algorithmName = "MD5";
         //散列迭代次数
         int hashIterations = 2;
-        User user=new User();
+        User user = new User();
         user.setSalt(salt);
         user.setUsername(username);
         user.setPassword(password);
-        String newPassword =new SimpleHash(algorithmName,user.getPassword(), ByteSource.Util.bytes(user.getUsername()+salt),hashIterations).toHex();
+        String newPassword = new SimpleHash(algorithmName, user.getPassword(), ByteSource.Util.bytes(user.getUsername() + salt), hashIterations).toHex();
         user.setPassword(newPassword);
-        if(userMapper.selectByUserName(username)!=null){
+        if (userMapper.selectByUserName(username) != null) {
             return false;
         }
-        if(userMapper.insertSelective(user)==1){
+        if (userMapper.insertSelective(user) == 1) {
             return true;
         }
         return false;

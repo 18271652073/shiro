@@ -31,7 +31,7 @@ public class ResultEntity {
 
     public static ResultEntity error(String resultCode, String resultMessage) {
         return new ResultEntity().setResultCode(resultCode).setResultMessage(resultMessage)
-            .setSuccess(false);
+                .setSuccess(false);
     }
 
     /**
@@ -39,7 +39,7 @@ public class ResultEntity {
      */
     public static ResultEntity ok(String resultMessage) {
         return new ResultEntity().setSuccess(true).setResultCode(CODE)
-            .setResultMessage(resultMessage);
+                .setResultMessage(resultMessage);
     }
 
     /**

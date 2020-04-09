@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class FirstController {
     @Autowired
     private UserService userService;
+
     @RequestMapping(value = "/first", method = RequestMethod.GET)
     public String first(Model model) {
         Subject subject = SecurityUtils.getSubject();
-        User admin=(User) subject.getPrincipal();
-        User user=userService.findUser(admin.getUsername());
-        model.addAttribute("username",user.getUsername());
+        User admin = (User) subject.getPrincipal();
+        User user = userService.findUser(admin.getUsername());
+        model.addAttribute("username", user.getUsername());
         return "first";
     }
 }

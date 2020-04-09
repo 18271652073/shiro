@@ -45,20 +45,20 @@ public class CorsController {
      */
     @RequestMapping(value = "/check", method = RequestMethod.GET)
     public ResultEntity check(HttpServletRequest request, Model model,
-                        @RequestParam String username,
-                        @RequestParam String password,
-                        @RequestParam(required = false,defaultValue = "") String captcha,
-                        @RequestParam(required = false,defaultValue = "") String rememberMe) {
+                              @RequestParam String username,
+                              @RequestParam String password,
+                              @RequestParam(required = false, defaultValue = "") String captcha,
+                              @RequestParam(required = false, defaultValue = "") String rememberMe) {
         model.addAttribute("username", username);
         model.addAttribute("password", password);
         Subject subject = SecurityUtils.getSubject();
-        String sessionId=request.getSession().getId();
+        String sessionId = request.getSession().getId();
         System.out.println(sessionId);
 //        if(!(captchaService.validate(sessionId,captcha))){
 //            return ResultEntity.error("验证码输入错误或超时！请刷新页面！");
 //        }
-        UserToken userToken = new UserToken(username, password,"Admin");
-        if(rememberMe!=null&&"".equals(rememberMe)){
+        UserToken userToken = new UserToken(username, password, "Admin");
+        if (rememberMe != null && "".equals(rememberMe)) {
             userToken.setRememberMe(true);
         }
         subject.login(userToken);
@@ -70,9 +70,9 @@ public class CorsController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ResultEntity register(Model model, @RequestParam String username, @RequestParam String password) {
-        if(userService.register(username,password)){
+        if (userService.register(username, password)) {
             return ResultEntity.ok("注册成功");
-        }else {
+        } else {
             return ResultEntity.error("注册失败，用户已存在！");
         }
     }
@@ -81,7 +81,7 @@ public class CorsController {
      * 登出
      */
     @RequestMapping(value = "/loginOut", method = RequestMethod.GET)
-    public ResultEntity loginOut(){
+    public ResultEntity loginOut() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return ResultEntity.ok("登出成功！");
@@ -92,11 +92,11 @@ public class CorsController {
      */
     @GetMapping(value = "/captcha.img")
     public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String sessionId=request.getSession().getId();
+        String sessionId = request.getSession().getId();
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-        BufferedImage image=captchaService.getKaptcha(sessionId);
-        ServletOutputStream out=response.getOutputStream();
+        BufferedImage image = captchaService.getKaptcha(sessionId);
+        ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
@@ -104,9 +104,9 @@ public class CorsController {
     @RequestMapping(value = "/first", method = RequestMethod.GET)
     public ResultEntity first(Model model) {
         Subject subject = SecurityUtils.getSubject();
-        User admin=(User) subject.getPrincipal();
-        User user=userService.findUser(admin.getUsername());
-        model.addAttribute("username",user.getUsername());
+        User admin = (User) subject.getPrincipal();
+        User user = userService.findUser(admin.getUsername());
+        model.addAttribute("username", user.getUsername());
         return ResultEntity.ok(user.toString());
     }
 }

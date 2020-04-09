@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * time
- * @author 
+ *
+ * @author
  */
 public class Time implements Serializable {
     private Date timestamp;

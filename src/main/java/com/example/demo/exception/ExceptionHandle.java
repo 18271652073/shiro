@@ -35,7 +35,7 @@ public class ExceptionHandle {
                 break;
             case "ExcessiveAttemptsException":
                 modelAndView.setViewName("login");
-                modelAndView.addObject("msg",  e.getMessage());
+                modelAndView.addObject("msg", e.getMessage());
                 break;
             case "MyException":
                 modelAndView.setViewName("login");

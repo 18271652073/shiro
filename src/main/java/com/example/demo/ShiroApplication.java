@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = {"com.example.demo.dom.**"})
 public class ShiroApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ShiroApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ShiroApplication.class, args);
+    }
 
 }
 

@@ -26,11 +26,11 @@ public class SecondRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("SecondRealm权限验证");
-        User user=(User)principalCollection.getPrimaryPrincipal();
-        Integer userId=user.getUid();
-        Set<String> setList=userService.findPower(userId.toString());
-        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
-        Set<String> rolesSet=new HashSet<>();
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        Integer userId = user.getUid();
+        Set<String> setList = userService.findPower(userId.toString());
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        Set<String> rolesSet = new HashSet<>();
         rolesSet.add("customer");
         info.setRoles(rolesSet);
         info.setStringPermissions(setList);
@@ -40,8 +40,8 @@ public class SecondRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("SecondRealm身份验证");
-        UserToken token  = (UserToken) authenticationToken;
-        if(token.getLoginType()==null){
+        UserToken token = (UserToken) authenticationToken;
+        if (token.getLoginType() == null) {
             try {
                 throw new Exception("SecondRealm:yonghu leixing null");
             } catch (Exception e) {
@@ -49,14 +49,14 @@ public class SecondRealm extends AuthorizingRealm {
             }
         }
         String username = token.getUsername();
-        User user=userService.findUser(username);
-        if (user==null){
+        User user = userService.findUser(username);
+        if (user == null) {
             try {
                 throw new Exception("用户信息不存在数据库！");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return new SimpleAuthenticationInfo(user,user.getPassword(),getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
     }
 }

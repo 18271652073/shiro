@@ -37,9 +37,9 @@ public class ShiroConfig {
 
 
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
 //        RetryLimitHashedCredentialsMatcher hashedCredentialsMatcher=new RetryLimitHashedCredentialsMatcher(cacheManager());
-        RetryLimitHashedCredentialsMatcher hashedCredentialsMatcher=new RetryLimitHashedCredentialsMatcher();
+        RetryLimitHashedCredentialsMatcher hashedCredentialsMatcher = new RetryLimitHashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
         hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
         //storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
@@ -53,6 +53,7 @@ public class ShiroConfig {
         authRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return authRealm;
     }
+
     @Bean(name = "secondRealm")
     public SecondRealm secondRealm() {
         SecondRealm secondRealm = new SecondRealm();
@@ -87,6 +88,7 @@ public class ShiroConfig {
 //        redisSessionDAO.setKeyPrefix("shiroSessionCache");
         return redisSessionDAO;
     }
+
     /**
      * cacheManager 缓存 redis实现
      * 使用的是shiro-redis开源插件
@@ -99,6 +101,7 @@ public class ShiroConfig {
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
     }
+
     /**
      * Session Manager
      * 使用的是shiro-redis开源插件
@@ -134,7 +137,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
         //oauth过滤
-        Map<String,Filter> filters = new HashMap<>();
+        Map<String, Filter> filters = new HashMap<>();
         filters.put("oauth2", new MyAccessControlFilter());
 //        filters.put("corsFilter", new CORSAuthenticationFilter());
         shiroFilter.setFilters(filters);
@@ -176,6 +179,7 @@ public class ShiroConfig {
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
     }
+
     /**
      * 初始化url路径
      */
@@ -205,8 +209,8 @@ public class ShiroConfig {
     }
 
     @Bean
-    public ModularRealmAuthenticator modularRealmAuthenticator(){
-        ModularRealmAuthenticator modularRealmAuthenticator=new ModularRealmAuthenticator();
+    public ModularRealmAuthenticator modularRealmAuthenticator() {
+        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
         modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
         return modularRealmAuthenticator;
     }
@@ -236,10 +240,11 @@ public class ShiroConfig {
     /**
      * cookie对象;
      * rememberMeCookie()方法是设置Cookie的生成模版，比如cookie的name，cookie的有效时间等等。
+     *
      * @return
      */
     @Bean
-    public SimpleCookie rememberMeCookie(){
+    public SimpleCookie rememberMeCookie() {
         //System.out.println("ShiroConfiguration.rememberMeCookie()");
         //这个参数是cookie的名称
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
@@ -251,10 +256,11 @@ public class ShiroConfig {
     /**
      * cookie管理对象;
      * rememberMeManager()方法是生成rememberMe管理器，而且要将这个rememberMe管理器设置到securityManager中
+     *
      * @return
      */
     @Bean
-    public CookieRememberMeManager rememberMeManager(){
+    public CookieRememberMeManager rememberMeManager() {
         System.out.println("ShiroConfiguration.rememberMeManager()");
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
